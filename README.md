@@ -6,7 +6,7 @@ This project aims to build a deep learning model to predict heart disease using 
 ### What is an ECG?
 An electrocardiogram (ECG) is a simple test used to examine the rhythm and electrical activity of the heart.
 ## ECG Diagram
-![ECG Diagram](images/ecg_signail.png)
+![ECG Diagram](ECG/images/ecg_signail.png)
 ### Key Features of ECG:
 - **P Wave**: Represents atrial depolarization.
 - **QRS Complex**: Represents ventricular depolarization.
@@ -23,11 +23,17 @@ An electrocardiogram (ECG) is a simple test used to examine the rhythm and elect
 ### Why Use ECG Images for Predicting Cardiovascular Diseases?
 Digital technologies have revolutionized signal analysis and automated diagnostics. The digitized ECG signals offer benefits like safety, easy storage, transport, and retrieval. For this project, we aim to convert ECG signals into images and apply deep learning techniques to predict diseases.
 
+
 ## System Architecture
+![System Architecture](ECG/images/digram.png)
 ### Current System:
+![Current System](ECG/images/system.png)
+
 - Manual analysis of ECGs by doctors.
 
 ### Proposed System:
+![Proposed System](ECG/images/newststem.png)
+
 - Deep learning model for automated ECG analysis and disease prediction.
 
 ### Advantages:
@@ -60,6 +66,8 @@ Digital technologies have revolutionized signal analysis and automated diagnosti
 - **Sigmoid Function**: Commonly used activation function in neural networks.
 
 ## Neural Networks:
+![ Neural Networks](ECG/images/nnai.png)
+
 Artificial Neural Networks (ANNs) are inspired by the human brain. They consist of interconnected nodes (neurons) that help computers learn and solve complex tasks. Applications include:
 - Medical image classification.
 - Targeted marketing.
@@ -67,14 +75,16 @@ Artificial Neural Networks (ANNs) are inspired by the human brain. They consist 
 - Load forecasting in power systems.
 
 ### CNN in Deep Learning:
+![CNN](ECG/images/cnndigram.png)
+
 CNNs are specialized in processing grid-like data structures, such as images. They use convolutional layers to detect image features like edges and shapes.
 
 ### CNN Architecture:
-1. **Convolutional Layer**: Performs a dot product between the kernel (filter) and the receptive field of the image.
-2. **Pooling Layer**: Reduces the spatial dimensions of the image representation, which reduces computation.
+1. **Convolutional Layer**:![Convolutional](ECG/images/convcnn.gif) Performs a dot product between the kernel (filter) and the receptive field of the image.
+2. **Pooling Layer**:![Pooling](ECG/images/pool.png) Reduces the spatial dimensions of the image representation, which reduces computation.
 3. **Fully Connected Layer**: Connects all neurons in the current layer to the next, similar to traditional neural networks.
 
-## Model Architecture: VGG16
+## Model Architecture:![VGG16](ECG/images/vgg16.png)                               
 VGG16 is a widely used CNN architecture with 16 layers of convolutions and pooling. It's known for using small convolutional filters (3x3), leading to significant improvements in performance.
 
 ```python
@@ -107,3 +117,19 @@ def VGG16():
     output_layer = Dense(6, activation='softmax', name='output')(x)
     model = Model(inputs=input_layer, outputs=output_layer)
     return model
+```
+# Training Parameters and Model Setup
+
+This section outlines the configuration of training parameters and the setup of the model for training.
+```python
+es = EarlyStopping(monitor='val_accuracy', mode='max', verbose=1, patience=20)
+opt = Adam(learning_rate=1e-4)
+model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
+
+mc = ModelCheckpoint('vgg16_best_model100.keras', monitor='val_accuracy', mode='max', save_best_only=True)
+```
+## Model Accuracy Visualization
+
+The following image illustrates the accuracy of the model throughout the training process. 
+
+![Model Accuracy](ECG/images/result.png)
